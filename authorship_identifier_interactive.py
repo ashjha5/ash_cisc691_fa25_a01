@@ -272,7 +272,7 @@ def add_author_interactive(system):
 
     author_name = input("\nEnter author name: ").strip()
     if not author_name:
-        print("❌ Author name cannot be empty!")
+        print("Author name cannot be empty!")
         return
 
     print("\nEnter the author's text (paste it below).")
@@ -289,196 +289,206 @@ def add_author_interactive(system):
 
     success, message = system.add_author(author_name, text)
     if success:
-        print(f"\n✅ {message}")
+        print(f"\n{message}")
     else:
-        print(f"\n❌ {message}")
+        print(f"\n{message}")
 
-        def train_model_interactive(system):
-            print("\n" + "=" * 60)
-            print("TRAIN MODEL")
-            print("=" * 60)
 
-            success, message = system.train()
-            if success:
-                print(f"\n✅ {message}")
-            else:
-                print(f"\n❌ {message}")
+def train_model_interactive(system):
+    print("\n" + "=" * 60)
+    print("TRAIN MODEL")
+    print("=" * 60)
 
-        def predict_interactive(system):
-            print("\n" + "=" * 60)
-            print("PREDICT AUTHORSHIP")
-            print("=" * 60)
+    success, message = system.train()
+    if success:
+        print(f"\n{message}")
+    else:
+        print(f"\n{message}")
 
-            if not system.is_trained:
-                print("\n❌ Model not trained yet! Please train the model first.")
-                return
 
-            print("\nEnter the mystery text (paste it below).")
-            print("When done, type '---END---' on a new line and press Enter:\n")
+def predict_interactive(system):
+    print("\n" + "=" * 60)
+    print("PREDICT AUTHORSHIP")
+    print("=" * 60)
 
-            lines = []
-            while True:
-                line = input()
-                if line.strip() == '---END---':
-                    break
-                lines.append(line)
+    if not system.is_trained:
+        print("\nModel not trained yet! Please train the model first.")
+        return
 
-            mystery_text = '\n'.join(lines)
+    print("\nEnter the mystery text (paste it below).")
+    print("When done, type '---END---' on a new line and press Enter:\n")
 
-            author, scores = system.predict(mystery_text)
+    lines = []
+    while True:
+        line = input()
+        if line.strip() == '---END---':
+            break
+        lines.append(line)
 
-            if author is None:
-                print(f"\n❌ {scores}")
-                return
+    mystery_text = '\n'.join(lines)
 
-            print("\n" + "=" * 60)
-            print("PREDICTION RESULTS")
-            print("=" * 60)
-            print(f"\n🎯 PREDICTED AUTHOR: {author}")
-            print("\nConfidence Scores (lower is better):")
-            print("-" * 40)
+    author, scores = system.predict(mystery_text)
 
-            sorted_scores = sorted(scores.items(), key=lambda x: x[1])
-            for auth, score in sorted_scores:
-                indicator = "👉" if auth == author else "  "
-                print(f"{indicator} {auth}: {score:.2f}")
+    if author is None:
+        print(f"\n{scores}")
+        return
 
-        def view_authors_interactive(system):
-            print("\n" + system.list_authors())
+    print("\n" + "=" * 60)
+    print("PREDICTION RESULTS")
+    print("=" * 60)
+    print(f"\nPREDICTED AUTHOR: {author}")
+    print("\nConfidence Scores (lower is better):")
+    print("-" * 40)
 
-        def remove_author_interactive(system):
-            print("\n" + "=" * 60)
-            print("REMOVE AUTHOR")
-            print("=" * 60)
+    sorted_scores = sorted(scores.items(), key=lambda x: x[1])
+    for auth, score in sorted_scores:
+        indicator = ">>>" if auth == author else "   "
+        print(f"{indicator} {auth}: {score:.2f}")
 
+
+def view_authors_interactive(system):
+    print("\n" + system.list_authors())
+
+
+def remove_author_interactive(system):
+    print("\n" + "=" * 60)
+    print("REMOVE AUTHOR")
+    print("=" * 60)
+
+    view_authors_interactive(system)
+
+    author_name = input("\nEnter author name to remove: ").strip()
+    if not author_name:
+        print("Author name cannot be empty!")
+        return
+
+    success, message = system.remove_author(author_name)
+    if success:
+        print(f"\n{message}")
+    else:
+        print(f"\n{message}")
+
+
+def save_model_interactive(system):
+    print("\n" + "=" * 60)
+    print("SAVE MODEL")
+    print("=" * 60)
+
+    filename = input("\nEnter filename (default: model.json): ").strip()
+    if not filename:
+        filename = "model.json"
+
+    success, message = system.save_model(filename)
+    if success:
+        print(f"\n{message}")
+    else:
+        print(f"\n{message}")
+
+
+def load_model_interactive(system):
+    print("\n" + "=" * 60)
+    print("LOAD MODEL")
+    print("=" * 60)
+
+    filename = input("\nEnter filename (default: model.json): ").strip()
+    if not filename:
+        filename = "model.json"
+
+    success, message = system.load_model(filename)
+    if success:
+        print(f"\n{message}")
+    else:
+        print(f"\n{message}")
+
+
+def show_status_interactive(system):
+    print("\n" + "=" * 60)
+    print("SYSTEM STATUS")
+    print("=" * 60)
+
+    status = system.get_status()
+    print(f"\nAuthors Count: {status['authors_count']}")
+    print(f"Trained: {'Yes' if status['is_trained'] else 'No'}")
+
+    if status['authors']:
+        print(f"\nAuthors: {', '.join(status['authors'])}")
+
+
+def run_demo_mode(system):
+    print("\nLoading demo data...")
+
+    demo_texts = {
+        'Agatha Christie': """
+        The Murder at the Vicarage is a work of detective fiction by Agatha Christie. 
+        It features Miss Marple, one of Christie's most beloved characters. 
+        The story unfolds in the quaint village of St. Mary Mead.
+        A murder occurs, and Miss Marple uses her keen observation skills to solve it.
+        The narrative is filled with red herrings and clever plot twists.
+        """,
+
+        'Arthur Conan Doyle': """
+        The Hound of the Baskervilles is perhaps the most famous Sherlock Holmes tale. 
+        Holmes investigates a supernatural legend on the eerie moors of Devonshire. 
+        Watson accompanies him, documenting every detail of the investigation.
+        The atmosphere is thick with fog and mystery.
+        Holmes uses his powers of deduction to unravel the truth.
+        """,
+
+        'Jane Austen': """
+        Pride and Prejudice remains a beloved classic of English literature.
+        Elizabeth Bennet is a spirited and intelligent protagonist.
+        The novel explores themes of love, class, and social expectations.
+        Mr. Darcy initially appears proud and disagreeable.
+        Through misunderstandings and revelations, their relationship develops beautifully.
+        """
+    }
+
+    for author, text in demo_texts.items():
+        system.add_author(author, text)
+
+    system.train()
+    print("Demo data loaded and model trained!")
+
+
+def main():
+    system = AuthorshipIdentifier()
+
+    print("\n" + "=" * 60)
+    print("  Welcome to Interactive Authorship Identification!")
+    print("=" * 60)
+
+    demo = input("\nLoad demo data? (y/n): ").strip().lower()
+    if demo == 'y':
+        run_demo_mode(system)
+
+    while True:
+        print_menu()
+        choice = input("Enter your choice (1-9): ").strip()
+
+        if choice == '1':
+            add_author_interactive(system)
+        elif choice == '2':
+            train_model_interactive(system)
+        elif choice == '3':
+            predict_interactive(system)
+        elif choice == '4':
             view_authors_interactive(system)
+        elif choice == '5':
+            remove_author_interactive(system)
+        elif choice == '6':
+            save_model_interactive(system)
+        elif choice == '7':
+            load_model_interactive(system)
+        elif choice == '8':
+            show_status_interactive(system)
+        elif choice == '9':
+            print("\nThanks for using the system! Goodbye!\n")
+            break
+        else:
+            print("\nInvalid choice. Please enter 1-9.")
 
-            author_name = input("\nEnter author name to remove: ").strip()
-            if not author_name:
-                print("❌ Author name cannot be empty!")
-                return
+        input("\nPress Enter to continue...")
 
-            success, message = system.remove_author(author_name)
-            if success:
-                print(f"\n✅ {message}")
-            else:
-                print(f"\n❌ {message}")
 
-        def save_model_interactive(system):
-            print("\n" + "=" * 60)
-            print("SAVE MODEL")
-            print("=" * 60)
-
-            filename = input("\nEnter filename (default: model.json): ").strip()
-            if not filename:
-                filename = "model.json"
-
-            success, message = system.save_model(filename)
-            if success:
-                print(f"\n✅ {message}")
-            else:
-                print(f"\n❌ {message}")
-
-        def load_model_interactive(system):
-            print("\n" + "=" * 60)
-            print("LOAD MODEL")
-            print("=" * 60)
-
-            filename = input("\nEnter filename (default: model.json): ").strip()
-            if not filename:
-                filename = "model.json"
-
-            success, message = system.load_model(filename)
-            if success:
-                print(f"\n✅ {message}")
-            else:
-                print(f"\n❌ {message}")
-
-        def show_status_interactive(system):
-            print("\n" + "=" * 60)
-            print("SYSTEM STATUS")
-            print("=" * 60)
-
-            status = system.get_status()
-            print(f"\nAuthors Count: {status['authors_count']}")
-            print(f"Trained: {'Yes ✅' if status['is_trained'] else 'No ❌'}")
-
-            if status['authors']:
-                print(f"\nAuthors: {', '.join(status['authors'])}")
-
-        def run_demo_mode(system):
-            print("\n🎬 Loading demo data...")
-
-            demo_texts = {
-                'Agatha Christie': """
-                The Murder at the Vicarage is a work of detective fiction by Agatha Christie. 
-                It features Miss Marple, one of Christie's most beloved characters. 
-                The story unfolds in the quaint village of St. Mary Mead.
-                A murder occurs, and Miss Marple uses her keen observation skills to solve it.
-                The narrative is filled with red herrings and clever plot twists.
-                """,
-
-                'Arthur Conan Doyle': """
-                The Hound of the Baskervilles is perhaps the most famous Sherlock Holmes tale. 
-                Holmes investigates a supernatural legend on the eerie moors of Devonshire. 
-                Watson accompanies him, documenting every detail of the investigation.
-                The atmosphere is thick with fog and mystery.
-                Holmes uses his powers of deduction to unravel the truth.
-                """,
-
-                'Jane Austen': """
-                Pride and Prejudice remains a beloved classic of English literature.
-                Elizabeth Bennet is a spirited and intelligent protagonist.
-                The novel explores themes of love, class, and social expectations.
-                Mr. Darcy initially appears proud and disagreeable.
-                Through misunderstandings and revelations, their relationship develops beautifully.
-                """
-            }
-
-            for author, text in demo_texts.items():
-                system.add_author(author, text)
-
-            system.train()
-            print("✅ Demo data loaded and model trained!")
-
-        def main():
-            system = AuthorshipIdentifier()
-
-            print("\n" + "=" * 60)
-            print("  Welcome to Interactive Authorship Identification!")
-            print("=" * 60)
-
-            demo = input("\nLoad demo data? (y/n): ").strip().lower()
-            if demo == 'y':
-                run_demo_mode(system)
-
-            while True:
-                print_menu()
-                choice = input("Enter your choice (1-9): ").strip()
-
-                if choice == '1':
-                    add_author_interactive(system)
-                elif choice == '2':
-                    train_model_interactive(system)
-                elif choice == '3':
-                    predict_interactive(system)
-                elif choice == '4':
-                    view_authors_interactive(system)
-                elif choice == '5':
-                    remove_author_interactive(system)
-                elif choice == '6':
-                    save_model_interactive(system)
-                elif choice == '7':
-                    load_model_interactive(system)
-                elif choice == '8':
-                    show_status_interactive(system)
-                elif choice == '9':
-                    print("\n👋 Thanks for using the system! Goodbye!\n")
-                    break
-                else:
-                    print("\n❌ Invalid choice. Please enter 1-9.")
-
-                input("\nPress Enter to continue...")
-
-        if __name__ == "__main__":
-            main()
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,284 @@
+/usr/bin/python3 /Users/ashutoshjha/Documents/Pycharm/ai_class/assignemnt_1/Ash_Version/authorship_identifier_interactive.py
+
+============================================================
+  Welcome to Interactive Authorship Identification!
+============================================================
+
+Load demo data? (y/n): y
+
+Loading demo data...
+Demo data loaded and model trained!
+
+============================================================
+    INTERACTIVE AUTHORSHIP IDENTIFICATION SYSTEM
+============================================================
+
+[1] Add Author
+[2] Train Model
+[3] Predict Author of Mystery Text
+[4] View Authors
+[5] Remove Author
+[6] Save Model
+[7] Load Model
+[8] System Status
+[9] Exit
+------------------------------------------------------------
+Enter your choice (1-9): 1
+
+============================================================
+ADD AUTHOR
+============================================================
+
+Enter author name: Ernest Hemingway
+
+Enter the author's text (paste it below).
+When done, type '---END---' on a new line and press Enter:
+
+'---END---'
+END
+The old man was thin and gaunt with deep wrinkles in the back of his neck. The brown blotches of the benevolent skin cancer the sun brings from its reflection on the tropic sea were on his cheeks. Everything about him was old except his eyes and they were the same color as the sea and were cheerful and undefeated.
+---END---
+
+Added author 'Ernest Hemingway' with 331 characters of text
+
+Press Enter to continue...
+
+============================================================
+    INTERACTIVE AUTHORSHIP IDENTIFICATION SYSTEM
+============================================================
+
+[1] Add Author
+[2] Train Model
+[3] Predict Author of Mystery Text
+[4] View Authors
+[5] Remove Author
+[6] Save Model
+[7] Load Model
+[8] System Status
+[9] Exit
+------------------------------------------------------------
+Enter your choice (1-9): 2
+
+============================================================
+TRAIN MODEL
+============================================================
+
+Model trained successfully with 4 authors
+
+Press Enter to continue...
+
+
+============================================================
+    INTERACTIVE AUTHORSHIP IDENTIFICATION SYSTEM
+============================================================
+
+[1] Add Author
+[2] Train Model
+[3] Predict Author of Mystery Text
+[4] View Authors
+[5] Remove Author
+[6] Save Model
+[7] Load Model
+[8] System Status
+[9] Exit
+------------------------------------------------------------
+Enter your choice (1-9):
+Invalid choice. Please enter 1-9.
+
+Press Enter to continue...3
+
+============================================================
+    INTERACTIVE AUTHORSHIP IDENTIFICATION SYSTEM
+============================================================
+
+[1] Add Author
+[2] Train Model
+[3] Predict Author of Mystery Text
+[4] View Authors
+[5] Remove Author
+[6] Save Model
+[7] Load Model
+[8] System Status
+[9] Exit
+------------------------------------------------------------
+Enter your choice (1-9): 3
+
+============================================================
+PREDICT AUTHORSHIP
+============================================================
+
+Enter the mystery text (paste it below).
+When done, type '---END---' on a new line and press Enter:
+
+The detective examined the evidence with methodical precision. Holmes deduced the solution through careful observation. Watson documented every detail with characteristic thoroughness. The fog rolled across the moors creating an atmosphere of mystery.
+---END---
+
+============================================================
+PREDICTION RESULTS
+============================================================
+
+PREDICTED AUTHOR: Jane Austen
+
+Confidence Scores (lower is better):
+----------------------------------------
+>>> Jane Austen: 3.94
+    Arthur Conan Doyle: 23.52
+    Agatha Christie: 33.70
+    Ernest Hemingway: 54.62
+
+Press Enter to continue...
+
+============================================================
+    INTERACTIVE AUTHORSHIP IDENTIFICATION SYSTEM
+============================================================
+
+[1] Add Author
+[2] Train Model
+[3] Predict Author of Mystery Text
+[4] View Authors
+[5] Remove Author
+[6] Save Model
+[7] Load Model
+[8] System Status
+[9] Exit
+------------------------------------------------------------
+Enter your choice (1-9): The young lady entered the drawing room with grace and dignity. She observed the assembled company with an intelligent eye. Her wit was evident in conversation with the gentleman. Society's expectations weighed upon her thoughts.
+---END---
+Invalid choice. Please enter 1-9.
+
+Press Enter to continue...
+
+============================================================
+    INTERACTIVE AUTHORSHIP IDENTIFICATION SYSTEM
+============================================================
+
+[1] Add Author
+[2] Train Model
+[3] Predict Author of Mystery Text
+[4] View Authors
+[5] Remove Author
+[6] Save Model
+[7] Load Model
+[8] System Status
+[9] Exit
+------------------------------------------------------------
+Enter your choice (1-9): 3
+
+============================================================
+PREDICT AUTHORSHIP
+============================================================
+
+Enter the mystery text (paste it below).
+When done, type '---END---' on a new line and press Enter:
+
+The young lady entered the drawing room with grace and dignity. She observed the assembled company with an intelligent eye. Her wit was evident in conversation with the gentleman. Society's expectations weighed upon her thoughts.
+---END---
+
+============================================================
+PREDICTION RESULTS
+============================================================
+
+PREDICTED AUTHOR: Arthur Conan Doyle
+
+Confidence Scores (lower is better):
+----------------------------------------
+>>> Arthur Conan Doyle: 9.08
+    Agatha Christie: 18.08
+    Jane Austen: 18.30
+    Ernest Hemingway: 39.00
+
+Press Enter to continue...
+
+============================================================
+    INTERACTIVE AUTHORSHIP IDENTIFICATION SYSTEM
+============================================================
+
+[1] Add Author
+[2] Train Model
+[3] Predict Author of Mystery Text
+[4] View Authors
+[5] Remove Author
+[6] Save Model
+[7] Load Model
+[8] System Status
+[9] Exit
+------------------------------------------------------------
+Enter your choice (1-9): 3
+
+============================================================
+PREDICT AUTHORSHIP
+============================================================
+
+Enter the mystery text (paste it below).
+When done, type '---END---' on a new line and press Enter:
+
+He walked down the street. The sun was hot. His legs were tired. Everything was simple and clear. He thought about the war. It was over now.
+---END---
+
+============================================================
+PREDICTION RESULTS
+============================================================
+
+PREDICTED AUTHOR: Agatha Christie
+
+Confidence Scores (lower is better):
+----------------------------------------
+>>> Agatha Christie: 18.14
+    Arthur Conan Doyle: 24.00
+    Ernest Hemingway: 25.78
+    Jane Austen: 39.13
+
+Press Enter to continue...
+
+============================================================
+    INTERACTIVE AUTHORSHIP IDENTIFICATION SYSTEM
+============================================================
+
+[1] Add Author
+[2] Train Model
+[3] Predict Author of Mystery Text
+[4] View Authors
+[5] Remove Author
+[6] Save Model
+[7] Load Model
+[8] System Status
+[9] Exit
+------------------------------------------------------------
+Enter your choice (1-9): 4
+
+
+=== Authors in System ===
+1. Agatha Christie (60 words)
+2. Arthur Conan Doyle (51 words)
+3. Jane Austen (43 words)
+4. Ernest Hemingway (62 words)
+
+
+Press Enter to continue...
+
+============================================================
+    INTERACTIVE AUTHORSHIP IDENTIFICATION SYSTEM
+============================================================
+
+[1] Add Author
+[2] Train Model
+[3] Predict Author of Mystery Text
+[4] View Authors
+[5] Remove Author
+[6] Save Model
+[7] Load Model
+[8] System Status
+[9] Exit
+------------------------------------------------------------
+Enter your choice (1-9): 8
+
+============================================================
+SYSTEM STATUS
+============================================================
+
+Authors Count: 4
+Trained: Yes
+
+Authors: Agatha Christie, Arthur Conan Doyle, Jane Austen, Ernest Hemingway
+
+Press Enter to continue...
